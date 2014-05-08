@@ -9,6 +9,7 @@ import traceback
 from config import BNConfigParser
 from jinja2 import Template
 
+
 def get_config():
 	cfg = BNConfigParser()
 	cfg.read(['backends.cfg', '/etc/better-notifications/backends.cfg'])
@@ -79,6 +80,9 @@ class Notifier(object):
 
 if __name__ == "__main__":
 	config = get_config()
+
+	if not config.get_backend_names():
+		logging.error("No backends configured (or backends.cfg not found). You will not be able to send notifications.")
 
 	parser = argparse.ArgumentParser()
 	parser.set_defaults(prefix='ICINGA_')

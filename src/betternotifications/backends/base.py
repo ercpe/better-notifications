@@ -7,7 +7,7 @@ class BackendBase(object):
 	def __init__(self, name, **kwargs):
 		self.name = name
 
-	def send(self, subject, message, variables, recipient):
+	def send(self, alert, variables, subject, message, recipient):
 		pass
 
 
