@@ -1,0 +1,1 @@
+** {{NOTIFICATIONTYPE}} Service Alert: {{HOSTALIAS}}/{{SERVICEDESC}} is {{SERVICESTATE}} **

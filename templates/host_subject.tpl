@@ -1,0 +1,1 @@
+** {{NOTIFICATIONTYPE}} Host Alert: {{HOSTNAME}} is {{HOSTSTATE}} **
