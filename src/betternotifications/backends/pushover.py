@@ -2,7 +2,7 @@
 import logging
 from urllib.request import urlopen
 from urllib.parse import urlencode, urlsplit, urlunsplit
-from backends.base import BackendBase
+from betternotifications.backends.base import BackendBase
 import simplejson
 
 

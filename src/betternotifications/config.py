@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from configparser import ConfigParser
-from backends import get_backend
+from betternotifications.backends import get_backend
 
 
 class BNConfigParser(ConfigParser):

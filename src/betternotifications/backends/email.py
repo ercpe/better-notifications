@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from backends.base import BackendBase
+from betternotifications.backends.base import BackendBase
 from email.mime.text import MIMEText
 import smtplib
 

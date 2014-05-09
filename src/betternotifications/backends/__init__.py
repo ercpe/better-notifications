@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from backends.base import DummyBackend
-from backends.email import EmailBackend
-from backends.pushover import PushoverBackend
+from betternotifications.backends.base import DummyBackend
+from betternotifications.backends.email import EmailBackend
+from betternotifications.backends.pushover import PushoverBackend
 
 
 def get_backend(name):

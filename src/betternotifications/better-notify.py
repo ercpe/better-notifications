@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import traceback
-from config import BNConfigParser
+from betternotifications.config import BNConfigParser
 from jinja2 import Template
 
 
