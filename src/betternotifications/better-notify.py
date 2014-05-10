@@ -95,11 +95,12 @@ if __name__ == "__main__":
 
 	parser.add_argument('-a', '--alert', choices=('host', 'service'), help="The alert type to send (default: auto)")
 	parser.add_argument('-b', '--backend', choices=config.get_backend_names(), required=True)
-	parser.add_argument('-v', '--verbose', action='count', help="Increase verbosity", default=30)
+	parser.add_argument('-d', '--debug', action='store_true', help='Show debugging output (e.g. stacktraces)')
+	parser.add_argument('-v', '--verbose', action='count', help="Increase verbosity", default=1)
 	parser.add_argument('-t', '--template-dir', default="/etc/better-notifications/templates",
 						help="Use templates from DIR instead of the default %(default)s")
-
-	parser.add_argument('recipients', metavar='RECIPIENT', nargs='+', help='Backend-specific recipients (e.g. email adresses)')
+	parser.add_argument('recipients', metavar='RECIPIENT', nargs='+',
+						help='Backend-specific recipients (e.g. email adresses)')
 
 	args = parser.parse_args()
 	logging.basicConfig(level=50 - (int(args.verbose) * 10), format='%(levelname)-8s %(message)s')
@@ -119,5 +120,6 @@ if __name__ == "__main__":
 
 	except Exception as ex:
 		logging.error(ex)
-		logging.error(traceback.format_exc())
+		if args.debug:
+			logging.error(traceback.format_exc())
 		sys.exit(2)

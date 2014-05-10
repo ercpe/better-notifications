@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 from urllib.request import urlopen
-from urllib.parse import urlencode, urlsplit, urlunsplit
 from betternotifications.backends.base import BackendBase
+from urllib.parse import urlencode, urlsplit, urlunsplit
 import simplejson
 
 
@@ -12,8 +12,7 @@ class PushoverBackend(BackendBase):
 		super(PushoverBackend, self).__init__(*args, **kwargs)
 		self.api_token = kwargs.get('api_token')
 		self.message_priority = kwargs.get('priority', 1)
-		self.sound = kwargs.get('sound', None)
-		self.extinfo_cgi = kwargs.get('extinfo_cgi', None)
+		self.sound = kwargs.get('sound', 'pushover')
 
 	def send(self, alert, variables, subject, message, recipient):
 		data = {
@@ -23,23 +22,11 @@ class PushoverBackend(BackendBase):
 			'sound': self.sound,
 			'title': subject,
 			'message': message,
+			'url': self.get_extinfo_url(variables)
 		}
 
 		if 'TIMET' in variables:
 			data['timestamp'] = variables.get('TIMET')
-
-		url = None
-
-		if self.extinfo_cgi:
-			scheme, netloc, path, query, fragment = urlsplit(self.extinfo_cgi)
-			args = [
-				('host', variables.get('HOSTALIAS'))
-			]
-			service_desc = variables.get('SERVICEDESC', None)
-			if service_desc:
-				args.append(('service', service_desc))
-
-			data['url'] = urlunsplit((scheme, netloc, path, urlencode(args), fragment))
 
 		try:
 			logging.debug("Sending data: %s" % data)

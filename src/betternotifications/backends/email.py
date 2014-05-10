@@ -16,6 +16,7 @@ class EmailBackend(BackendBase):
 		msg = MIMEText(message)
 
 		msg['Subject'] = subject
+		msg['Precedence'] = 'bulk'
 
 		if self.sender:
 			msg['From'] = self.sender

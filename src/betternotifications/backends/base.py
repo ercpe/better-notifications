@@ -1,14 +1,27 @@
 # -*- coding: utf-8 -*-
 import logging
+from urllib.parse import urlencode, urlsplit, urlunsplit
 
 
 class BackendBase(object):
 
 	def __init__(self, name, **kwargs):
 		self.name = name
+		self.extinfo_cgi = kwargs.get('extinfo_cgi', None)
 
 	def send(self, alert, variables, subject, message, recipient):
 		pass
+
+	def get_extinfo_url(self, variables):
+		if self.extinfo_cgi:
+			scheme, netloc, path, query, fragment = urlsplit(self.extinfo_cgi)
+			args = [
+				('host', variables.get('HOSTALIAS'))
+			]
+			if variables.get('SERVICEDESC', None):
+				args.append(('service', variables.get('SERVICEDESC', None)))
+
+			return urlunsplit((scheme, netloc, path, urlencode(args), fragment))
 
 
 class DummyBackend(BackendBase):
