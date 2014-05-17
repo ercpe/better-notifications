@@ -21,6 +21,8 @@ class BackendBase(object):
 			if variables.get('SERVICEDESC', None):
 				args.append(('service', variables.get('SERVICEDESC', None)))
 
+			args.append(('type', 1 if variables.get('SERVICEDESC', None) else 2))
+
 			return urlunsplit((scheme, netloc, path, urlencode(args), fragment))
 
 
